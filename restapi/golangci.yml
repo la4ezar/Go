@@ -1,0 +1,42 @@
+run:
+  skip-files:
+  - ".*/zz_generated\\..*"
+  skip-dirs:
+  - dev/
+  tests: false
+
+linters-settings:
+  lll:
+    line-length: 120
+  gocyclo:
+    min-complexity: 15
+  goimports:
+    local-prefixes: github.wdf.sap.corp/sen/sen
+
+linters:
+  disable-all: true
+  enable:
+  - deadcode
+  - errcheck
+  - gochecknoinits
+  - goconst
+  - gocyclo
+  - goimports
+  - golint
+  - gosec
+  - ineffassign
+  - interfacer
+  - lll
+  - maligned
+  - misspell
+  - nakedret
+  - staticcheck
+  - structcheck
+  - unconvert
+  - varcheck
+  - vet
+  - vetshadow
+  - govet
+  - unused
+  - gosimple
+  - typecheck

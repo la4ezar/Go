@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  readtimeout: 15s
+  writetimeout: 15s
+  idletimeout: 45s
+  shutdowntimeout: 10s
+
+client:
+  timeout: 15s
+  disable_keep_alives: true
+  endpoints:
+    getcryptos: http://localhost:8080/api/cryptos
+    getcrypto: http://localhost:8080/api/cryptos
+    postcrypto: http://localhost:8080/api/cryptos
+    putcrypto: http://localhost:8080/api/cryptos
+    deletecrypto: http://localhost:8080/api/cryptos
+    healthcheck: http://localhost:8080/api/health
+
+storage:
+  type: postgres
+  data_source:
+    host: database 	# THE HOST IS THE NAME OF THE DB SERVICE IN DOCKER COMPOSE FILE
+    port: 5432
+    user: lachezar
+    password: 123456
+    dbname: cryptos
+    sslmode: disable
+
+logger:
+  level: info
+  format: text
+  output: /dev/stdout

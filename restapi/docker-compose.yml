@@ -1,0 +1,23 @@
+version: "3"
+services:
+  database:
+    container_name: database
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+  migrator:
+    image: la4ezar/migrator:1.0
+    env_file:
+      - .migrator_env
+    depends_on:
+      - database
+  restapi:
+    image: la4ezar/restapi:4.0
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - migrator

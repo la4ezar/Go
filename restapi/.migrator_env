@@ -1,0 +1,7 @@
+DB_USER=lachezar
+DB_HOST=database
+DB_NAME=cryptos
+DB_PORT=5432
+DB_PASSWORD=123456
+DB_SSL=disable
+DIRECTION=up
