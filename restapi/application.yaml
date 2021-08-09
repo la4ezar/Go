@@ -19,7 +19,7 @@ client:
 storage:
   type: postgres
   data_source:
-    host: database 	# THE HOST IS THE NAME OF THE DB SERVICE IN DOCKER COMPOSE FILE
+    host: database 	# THE HOST IS THE NAME OF THE DB SERVICE IN DOCKER COMPOSE FILE, POD NAME
     port: 5432
     user: lachezar
     password: 123456
