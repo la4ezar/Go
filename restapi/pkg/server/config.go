@@ -29,19 +29,19 @@ func DefaultConfig() *Config {
 
 // Validate validates the server settings
 func (c *Config) Validate() error {
-	if c.Port == 0 {
+	if c.Port <= 0 {
 		return fmt.Errorf("validate Server settings: Port missing")
 	}
-	if c.ReadTimeout == 0 {
+	if c.ReadTimeout <= 0 {
 		return fmt.Errorf("validate Server settings: ReadTimeout missing")
 	}
-	if c.WriteTimeout == 0 {
+	if c.WriteTimeout <= 0 {
 		return fmt.Errorf("validate Server settings: WriteTimeout missing")
 	}
-	if c.IdleTimeout == 0 {
+	if c.IdleTimeout <= 0 {
 		return fmt.Errorf("validate Server settings: IdleTimeout missing")
 	}
-	if c.ShutdownTimeout == 0 {
+	if c.ShutdownTimeout <= 0 {
 		return fmt.Errorf("validate Server settings: ShutdownTimeout missing")
 	}
 

@@ -40,9 +40,12 @@ func New(c *Config) *Client {
 func (c *Client) GetCryptos() {
 	url := c.Endpoints["getcryptos"]
 
-	response, err := c.Get(url)
-	logOnError(fmt.Sprintf("An error occurred while making GET request to %s", url), err)
+	request, err := http.NewRequest(http.MethodGet, url, nil)
+	logOnError("An error occurred while creating GET request.", err)
 
+	setHeaders(request)
+	response, err := c.Do(request)
+	logOnError(fmt.Sprintf("An error occured while making GET request to %s", url), err)
 	defer func() {
 		err := response.Body.Close()
 		logOnError("An error occurred while closing response body", err)
@@ -57,9 +60,12 @@ func (c *Client) GetCryptos() {
 func (c *Client) GetCrypto(cryptoID string) {
 	url := c.Endpoints["getcrypto"] + cryptoID
 
-	response, err := c.Get(url)
-	logOnError(fmt.Sprintf("An error occurred while making GET request to %s", url), err)
+	request, err := http.NewRequest(http.MethodGet, url, nil)
+	logOnError("An error occurred while creating GET request.", err)
 
+	setHeaders(request)
+	response, err := c.Do(request)
+	logOnError(fmt.Sprintf("An error occured while making GET request to %s", url), err)
 	defer func() {
 		err := response.Body.Close()
 		logOnError("An error occurred while closing response body", err)
@@ -75,8 +81,12 @@ func (c *Client) PostCrypto(crypto Cryptocurrency) {
 	requestBody, err := json.Marshal(crypto)
 	logOnError("An error occurred while marshalling crypto", err)
 
-	response, err := c.Post(url, "application/json", bytes.NewBuffer(requestBody))
-	logOnError(fmt.Sprintf("An error occurred while making POST request to %s", url), err)
+	request, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(requestBody))
+	logOnError("An error occurred while creating POST request.", err)
+
+	setHeaders(request)
+	response, err := c.Do(request)
+	logOnError(fmt.Sprintf("An error occured while making POST request to %s", url), err)
 	defer func() {
 		err := response.Body.Close()
 		logOnError("An error occurred while closing response body", err)
@@ -94,13 +104,11 @@ func (c *Client) PutCrypto(crypto Cryptocurrency) {
 	logOnError("An error occurred while marshalling crypto", err)
 
 	request, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(requestBody))
-	logOnError("An error occurred while creating GET request.", err)
+	logOnError("An error occurred while creating PUT request.", err)
 
 	setHeaders(request)
 	response, err := c.Do(request)
 	logOnError(fmt.Sprintf("An error occured while making PUT request to %s", url), err)
-
-	// Handle Closer error
 	defer func() {
 		err := response.Body.Close()
 		logOnError("An error occurred while closing response body", err)
@@ -118,7 +126,6 @@ func (c *Client) DeleteCrypto(cryptoID string) {
 	logOnError("An error occurred while creating DELETE request.", err)
 
 	setHeaders(request)
-
 	response, err := c.Do(request)
 	logOnError(fmt.Sprintf("An error occured while making DELETE request to %s", url), err)
 	defer func() {
@@ -134,9 +141,12 @@ func (c *Client) DeleteCrypto(cryptoID string) {
 func (c *Client) HealthCheck() {
 	url := c.Endpoints["healthcheck"]
 
-	response, err := http.Get(url)
-	logOnError(fmt.Sprintf("An error occurred while making GET request to %s", url), err)
+	request, err := http.NewRequest(http.MethodGet, url, nil)
+	logOnError("An error occurred while creating GET request.", err)
 
+	setHeaders(request)
+	response, err := c.Do(request)
+	logOnError(fmt.Sprintf("An error occured while making GET request to %s", url), err)
 	defer func() {
 		err := response.Body.Close()
 		logOnError("An error occurred while closing response body", err)

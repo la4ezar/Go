@@ -23,7 +23,7 @@ func (c *Config) Validate() error {
 	if len(c.Endpoints) == 0 {
 		return fmt.Errorf("validate Client settings: Endpoints missing")
 	}
-	if c.Timeout == 0*time.Second {
+	if c.Timeout <= 0*time.Second {
 		return fmt.Errorf("validate Client settings: Timeout missing")
 	}
 
