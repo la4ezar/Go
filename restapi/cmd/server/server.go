@@ -31,13 +31,10 @@ func main() {
 	fatalOnError(err)
 	defer func() {
 		if err := db.Close(); err != nil {
-			log.D().WithError(err).Error()
+			log.C(ctx).WithError(err).Error()
 		}
 	}()
 
-	//r := routes-old.NewRouter(db.DB)
-
-	//srv := server.New(cfg.Server, r)
 	repository := storage.NewRepository(*db)
 	ctr := controller.NewController(repository)
 	srv := server.New(cfg.Server, *ctr)
@@ -49,7 +46,7 @@ func main() {
 
 	wg.Wait()
 
-	log.D().Println("Server shutdown.")
+	log.C(ctx).Println("Server shutdown.")
 }
 
 func fatalOnError(err error) {
