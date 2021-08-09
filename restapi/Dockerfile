@@ -29,4 +29,4 @@ WORKDIR /app
 COPY --from=builder /app /app
 
 #CMD ["/app/server", "&", "/app/client"]
-CMD ["/app/server"]
+ENTRYPOINT ["/app/server"]

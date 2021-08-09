@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/la4ezar/restapi/internal/crypto"
@@ -13,16 +14,16 @@ type Repository interface {
 	AddCrypto(c crypto.Cryptocurrency) error
 	UpdateCrypto(oldCryptoID string, c crypto.Cryptocurrency) error
 	RemoveCrypto(cryptoID string) error
-	Ping() error
+	PingWithContext(ctx context.Context) error
 }
 
 type RepositoryImpl struct {
 	storage Storage
 }
 
-func NewRepository(storage Storage) Repository {
+func NewRepository(s Storage) Repository {
 	return &RepositoryImpl{
-		storage: storage,
+		storage: s,
 	}
 }
 
@@ -163,7 +164,6 @@ func (r *RepositoryImpl) RemoveCrypto(cryptoID string) error {
 	return nil
 }
 
-func (r *RepositoryImpl) Ping() error {
-	return r.storage.DB.Ping()
-	// TODO check pingcontext
+func (r *RepositoryImpl) PingWithContext(ctx context.Context) error {
+	return r.storage.DB.PingContext(ctx)
 }

@@ -5,3 +5,4 @@
 database
 vendor
 internal/routes-old
+k8s

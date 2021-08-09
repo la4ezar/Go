@@ -24,7 +24,7 @@ func New(c *Config) (*Storage, error) {
 
 	err = db.Ping()
 	if err != nil {
-		return nil, fmt.Errorf("database is not alive: %s", err)
+		return nil, nil
 	}
 
 	log.Println("Database is up-to-date")

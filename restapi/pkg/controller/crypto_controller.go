@@ -164,7 +164,7 @@ func (c *Controller) readinessCheck() http.HandlerFunc {
 
 		setHeaders(&w)
 
-		if err := c.repository.Ping(); err != nil {
+		if err := c.repository.PingWithContext(r.Context()); err != nil {
 			w.WriteHeader(http.StatusServiceUnavailable)
 		} else {
 			w.WriteHeader(http.StatusOK)
