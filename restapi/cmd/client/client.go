@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	cfg, err := config.New()
+	cfg, err := config.NewDefaultClientConfig()
 	if err != nil {
 		log.D().WithError(err).Error()
 	}

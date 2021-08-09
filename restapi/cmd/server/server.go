@@ -18,7 +18,7 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	cfg, err := config.New()
+	cfg, err := config.NewDefaultServerConfig()
 	fatalOnError(err)
 
 	err = cfg.Validate()
