@@ -149,6 +149,21 @@ func (c *Controller) healthCheck() http.HandlerFunc {
 			logOnError("an error occurred while closing request body", err)
 		}()
 
+		setHeaders(&w)
+
+		w.WriteHeader(http.StatusOK)
+	}
+}
+
+func (c *Controller) readinessCheck() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			err := r.Body.Close()
+			logOnError("an error occurred while closing request body", err)
+		}()
+
+		setHeaders(&w)
+
 		if err := c.repository.Ping(); err != nil {
 			w.WriteHeader(http.StatusServiceUnavailable)
 		} else {
@@ -213,6 +228,12 @@ func (c *Controller) Routes() *Routes {
 			Method:  http.MethodGet,
 			Path:    routes.HealthCheckURL,
 			Handler: c.healthCheck(),
+		},
+		{
+			Name:    "Readiness Check",
+			Method:  http.MethodGet,
+			Path:    routes.ReadinessCheckURL,
+			Handler: c.readinessCheck(),
 		},
 	}
 }
