@@ -101,12 +101,13 @@ func RequestLogger() func(next http.Handler) http.Handler {
 
 			beforeLogger.Info("Starting handling request...")
 
-			next.ServeHTTP(w, r)
+			loggingResponseWriter := newLoggingResponseWriter(w)
+			next.ServeHTTP(loggingResponseWriter, r)
 
 			duration := time.Since(start)
 
 			afterLogger := D().WithFields(logrus.Fields{
-				"status_code": http.StatusOK,
+				"status_code": loggingResponseWriter.statusCode,
 				"took":        duration,
 			})
 
