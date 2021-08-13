@@ -3,7 +3,7 @@ server:
   readtimeout: 15s
   writetimeout: 15s
   idletimeout: 45s
-  shutdowntimeout: 10s
+  shutdowntimeout: 15s
 
 client:
   timeout: 15s

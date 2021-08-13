@@ -22,10 +22,10 @@ func New(c *Config) (*Storage, error) {
 		return nil, fmt.Errorf("unable to open db connection: %s", err)
 	}
 
-	err = db.Ping()
-	if err != nil {
-		return nil, nil
-	}
+	//err = db.Ping()
+	//if err != nil {
+	//	return nil, nil
+	//}
 
 	log.Println("Database is up-to-date")
 
