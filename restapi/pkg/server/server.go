@@ -66,7 +66,9 @@ func (s *Server) Start(parentCtx context.Context, wg *sync.WaitGroup) {
 
 	log.C(ctx).Infof("Starting and listening on %s\n", s.Addr)
 
-	log.C(ctx).Fatal(s.ListenAndServe())
+	if err := s.ListenAndServe(); err != http.ErrServerClosed {
+		log.C(ctx).Fatalf("Couldn't listen on %s: %v\n", s.Addr, err)
+	}
 }
 
 // stop stops the Server
