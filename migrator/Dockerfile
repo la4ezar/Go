@@ -1,6 +1,6 @@
 FROM alpine
 
-ARG MIGRATE_VER=4.5.0
+ARG MIGRATE_VER=4.14.0
 
 WORKDIR /migrate
 
@@ -11,4 +11,4 @@ RUN mv migrate.linux-amd64 /usr/local/bin/migrate
 COPY ./migrations/ ./migrations
 COPY ./run.sh ./run.sh
 
-CMD ["./run.sh"]
+ENTRYPOINT ["./run.sh"]
