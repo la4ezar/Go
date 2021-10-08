@@ -1,4 +1,15 @@
 #!/bin/bash
+
+IFS=$'\n' read -ra arr -d '' </conf/migrator.conf
+
+DB_USER="${arr[0]}"
+DB_HOST="${arr[1]}"
+DB_NAME="${arr[2]}"
+DB_PORT="${arr[3]}"
+DB_PASSWORD="${arr[4]}"
+DB_SSL="${arr[5]}"
+DIRECTION="${arr[6]}"
+
 for var in DB_USER DB_HOST DB_NAME DB_PORT DB_PASSWORD DB_SSL DIRECTION; do
     if [ -z "${!var}" ] ; then
         echo "ERROR: $var is not set"
